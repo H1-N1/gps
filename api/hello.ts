@@ -1,14 +1,5 @@
-import type { VercelRequest, VercelResponse } from '@vercel/node';
-
-export default function handler(req: VercelRequest, res: VercelResponse) {
-  const { name = 'World' } = req.query;
-  return res.json({
-    message: `Hello ${name}!`,
-  });
-}
 
 
-/*
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { app } from 'google-play-scraper';
 
@@ -36,4 +27,17 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     return res.status(500).json({ error: 'Failed to fetch app info.', details: err.message });
   }
 }
+
+/*
+
+import type { VercelRequest, VercelResponse } from '@vercel/node';
+
+export default function handler(req: VercelRequest, res: VercelResponse) {
+  const { name = 'World' } = req.query;
+  return res.json({
+    message: `Hello ${name}!`,
+  });
+}
+
+
 */
