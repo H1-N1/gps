@@ -3,6 +3,9 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { app } from 'google-play-scraper';
 
+import { VercelRequest, VercelResponse } from '@vercel/node';
+import app from 'your-scraper-library'; // Replace with actual import
+
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   const { package: pkg } = req.query;
 
@@ -13,15 +16,28 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   try {
     const data = await app({ appId: pkg });
 
+    // Format last update
+    let lastUpdateISO: string;
+    if (data.updatedTimestamp) {
+      lastUpdateISO = new Date(data.updatedTimestamp).toISOString();
+    } else if (data.updated) {
+      lastUpdateISO = new Date(data.updated).toISOString();
+    } else {
+      lastUpdateISO = null;
+    }
+
+    // Format rating
+    const rating = data.score ? parseFloat(data.score.toFixed(1)) : null;
+
     return res.status(200).json({
       package: data.appId,
       name: data.title,
       icon: data.icon,
       version: data.version,
       installs: data.installs,
-      rating: data.score,
+      rating: rating,
       developer: data.developer,
-      lastUpdate: data.updated
+      lastUpdate: lastUpdateISO
     });
 
   } catch (err: any) {
@@ -29,16 +45,3 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   }
 }
 
-/*
-
-import type { VercelRequest, VercelResponse } from '@vercel/node';
-
-export default function handler(req: VercelRequest, res: VercelResponse) {
-  const { name = 'World' } = req.query;
-  return res.json({
-    message: `Hello ${name}!`,
-  });
-}
-
-
-*/
