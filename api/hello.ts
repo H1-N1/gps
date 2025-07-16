@@ -20,7 +20,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       version: data.version,
       installs: data.installs,
       rating: data.score,
-      developer: data.developer
+      developer: data.developer,
+      lastUpdate: data.updated
     });
 
   } catch (err: any) {
