@@ -1,8 +1,3 @@
-
-
-import type { VercelRequest, VercelResponse } from '@vercel/node';
-import { app } from 'google-play-scraper';
-
 import { VercelRequest, VercelResponse } from '@vercel/node';
 import app from 'your-scraper-library'; // Replace with actual import
 
@@ -16,18 +11,15 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   try {
     const data = await app({ appId: pkg });
 
-    // Format last update
-    let lastUpdateISO: string;
-    if (data.updatedTimestamp) {
-      lastUpdateISO = new Date(data.updatedTimestamp).toISOString();
-    } else if (data.updated) {
-      lastUpdateISO = new Date(data.updated).toISOString();
-    } else {
-      lastUpdateISO = null;
-    }
+    // Convert timestamp to ISO date
+    const lastUpdateISO = data.updatedTimestamp || data.lastUpdate
+      ? new Date(data.updatedTimestamp || data.lastUpdate).toISOString()
+      : null;
 
-    // Format rating
-    const rating = data.score ? parseFloat(data.score.toFixed(1)) : null;
+    // Round rating to 1 decimal
+    const rating = (typeof data.score === 'number' ? Math.round(data.score * 10) / 10 :
+                   typeof data.rating === 'number' ? Math.round(data.rating * 10) / 10 :
+                   null);
 
     return res.status(200).json({
       package: data.appId,
@@ -44,4 +36,3 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     return res.status(500).json({ error: 'Failed to fetch app info.', details: err.message });
   }
 }
-
