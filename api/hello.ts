@@ -20,17 +20,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     const rating = (typeof data.score === 'number' ? Math.round(data.score * 10) / 10 :
                    typeof data.rating === 'number' ? Math.round(data.rating * 10) / 10 :
                    null);
+return res.status(200).json(data);
 
-    return res.status(200).json({
-      package: data.appId,
-      name: data.title,
-      icon: data.icon,
-      version: data.version,
-      installs: data.installs,
-      rating: rating,
-      developer: data.developer,
-      lastUpdate: data.lastUpdate
-    });
+   
 
   } catch (err: any) {
     return res.status(500).json({ error: 'Failed to fetch app info.', details: err.message });
