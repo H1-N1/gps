@@ -11,10 +11,16 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   try {
     const data = await app({ appId: pkg });
 
-    // Convert timestamp to ISO date
-     const lastUpdateISO = data.updatedTimestamp || data.updated
-      ? new Date(data.updatedTimestamp || data.updated).toISOString()
-      : null;
+    const timestamp = data.updatedTimestamp || data.updated;
+
+  const lastUpdate = timestamp
+    ? new Date(timestamp).toLocaleDateString('en-GB', {
+        day: '2-digit',
+        month: 'short',
+        year: 'numeric'
+      }).replace(/ /g, ' ')
+    : null;
+
 
     // Round rating to 1 decimal
     const rating = (typeof data.score === 'number' ? Math.round(data.score * 10) / 10 :
