@@ -12,9 +12,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     const data = await app({ appId: pkg });
 
     // Convert timestamp to ISO date
-    const lastUpdateISO = data.updatedTimestamp || data.lastUpdate
-      ? new Date(data.updatedTimestamp || data.lastUpdate).toISOString()
-      : null;
+   // const lastUpdateISO = data.updatedTimestamp || data.lastUpdate
+     // ? new Date(data.updatedTimestamp || data.lastUpdate).toISOString()
+      //: null;
 
     // Round rating to 1 decimal
     const rating = (typeof data.score === 'number' ? Math.round(data.score * 10) / 10 :
@@ -29,7 +29,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       installs: data.installs,
       rating: rating,
       developer: data.developer,
-      lastUpdate:  data.lastUpdate
+      lastUpdate: data.lastUpdate
     });
 
   } catch (err: any) {
