@@ -12,15 +12,15 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     const data = await app({ appId: pkg });
 
     // Convert timestamp to ISO date
-   // const lastUpdateISO = data.updatedTimestamp || data.lastUpdate
-     // ? new Date(data.updatedTimestamp || data.lastUpdate).toISOString()
-      //: null;
+   const lastUpdateISO = data.updatedTimestamp || data.updated
+      ? new Date(data.updatedTimestamp || data.updated).toISOString()
+      : null;
 
     // Round rating to 1 decimal
     const rating = (typeof data.score === 'number' ? Math.round(data.score * 10) / 10 :
                    typeof data.rating === 'number' ? Math.round(data.rating * 10) / 10 :
                    null);
-    return res.status(200).json(data);
+    //return res.status(200).json(data);
 
    
 
