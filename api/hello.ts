@@ -12,7 +12,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     const data = await app({ appId: pkg });
 
     // Convert timestamp to ISO date
-   const lastUpdateISO = data.updatedTimestamp || data.updated
+     const lastUpdateISO = data.updatedTimestamp || data.updated
       ? new Date(data.updatedTimestamp || data.updated).toISOString()
       : null;
 
@@ -21,16 +21,16 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
                    typeof data.rating === 'number' ? Math.round(data.rating * 10) / 10 :
                    null);
     //return res.status(200).json(data);
-  return res.status(200).json({
-      package: data.appId,
-      name: data.title,
-      icon: data.icon,
-      version: data.version,
-      installs: data.installs,
-      rating: data.scoreText,
-      developer: data.developer,
-      lastUpdate: lastUpdateISO
-    });
+    return res.status(200).json({
+        package: data.appId,
+        name: data.title,
+        icon: data.icon,
+        version: data.version,
+        installs: data.installs,
+        rating: data.scoreText,
+        developer: data.developer,
+        lastUpdate: lastUpdateISO
+      });
    
 
   } catch (err: any) {
