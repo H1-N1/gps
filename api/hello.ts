@@ -35,7 +35,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         installs: data.installs,
         rating: data.scoreText,
         developer: data.developer,
-        lastUpdate: lastUpdateISO
+        lastUpdate: lastUpdate
       });
    
 
