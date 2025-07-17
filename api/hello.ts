@@ -20,7 +20,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     const rating = (typeof data.score === 'number' ? Math.round(data.score * 10) / 10 :
                    typeof data.rating === 'number' ? Math.round(data.rating * 10) / 10 :
                    null);
-return res.status(200).json(data);
+    return res.status(200).json(data);
 
    
 
