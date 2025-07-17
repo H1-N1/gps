@@ -33,6 +33,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
             rating: parseFloat(data.score).toFixed(1),
             developer: data.developer,
             lastUpdate: lastUpdate
+            released: data.released,  
+            url: data.url,
+            summary: data.summary
         });
 
     } catch (err) {
