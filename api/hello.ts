@@ -1,5 +1,5 @@
 import { VercelRequest, VercelResponse } from '@vercel/node';
-import app from 'your-scraper-library'; // Replace with actual import
+import app from 'google-play-scraper'; // Replace with actual import
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   const { package: pkg } = req.query;
